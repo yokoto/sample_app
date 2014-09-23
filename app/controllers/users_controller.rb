@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    @user = User.new  # フォームを正常に出力する@userオブジェクト
   end
 
   def create
