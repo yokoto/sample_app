@@ -14,7 +14,7 @@ end
 
 def sign_in(user, options={})
   if options[:no_capybara]
-    # Sign in when not using Capybara.
+    # Sign in even if not using Capybara.
     remember_token = User.new_remember_token
     cookies[:remember_token] = remember_token
     user.update_attribute(:remember_token, User.encrypt(remember_token))

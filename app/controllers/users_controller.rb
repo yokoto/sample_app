@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only: [:index, :edit, :update]
+  before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
 
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
 
   def destroy
     user = User.find(params[:id])
-    if current_user? user  # == user.admin?
+    if current_user? user  # == user.admin? 削除するユーザーが管理者かどうか
       redirect_to(root_path)
     else
       user.destroy
