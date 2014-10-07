@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :microposts, dependent: :destroy
   has_secure_password
   before_save { email.downcase! }
   # User生成のタイミングでコールバック
@@ -20,6 +21,12 @@ class User < ActiveRecord::Base
   # 記憶トークンの暗号化
   def User.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  def feed
+    # このコードは準備段階です。
+    # 完全な実装は第11章「ユーザーをフォローする」を参照してください。
+    Micropost.where("user_id = ?", id)  # 自分のマイクロポスト
   end
 
   private
