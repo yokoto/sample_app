@@ -4,9 +4,9 @@ class RelationshipsController < ApplicationController
 	respond_to :html, :js
 
 	def create
-		@user = User.find(params[:relationship][:followed_id])
+		@user = User.find(params[:relationship][:followed_id])  # これらフォローするユーザーの取り出し
 		current_user.follow!(@user)
-		# respond_to do |format|
+		# respond_to do |format|  #  ページを移動しない
 		#	  format.html { redirect_to @user }
 		#	  format.js
 		# end
@@ -14,7 +14,7 @@ class RelationshipsController < ApplicationController
 	end
 
 	def destroy
-		@user = Relationship.find(params[:id]).followed
+		@user = Relationship.find(params[:id]).followed  # フォローしているユーザーの取り出し
 		current_user.unfollow!(@user)
 		# respond_to do |format|
 		#	  format.html { redirect_to @user }

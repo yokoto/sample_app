@@ -1,9 +1,10 @@
 class User < ActiveRecord::Base
   has_many :microposts, dependent: :destroy
-  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  has_many :relationships, foreign_key: "follower_id", dependent: :destroy  # 2つのモデルの間の「第3のモデル」(結合モデル)の介在
   has_many :followed_users, through: :relationships, source: :followed
-  has_many :reverse_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy
-  has_many :followers, through: :reverse_relationships, source: :follower
+
+  has_many :reverse_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy  # has_many :relationshipsの逆
+  has_many :followers, through: :reverse_relationships#, source: :follower
   has_secure_password
   before_save { email.downcase! }
   # User生成のタイミングでコールバック
