@@ -10,7 +10,7 @@ module SessionsHelper
   # signed_in?を経由して、セッションが張られているかどうかを確認する
   # つまり、(ほとんどの)リクエストの度に呼ぶようにする。
   def signed_in?
-    !current_user.nil?  # current_userがnilではないならtrue ≒ current_user?
+    !current_user.nil?  # current_userがnilではないならtrue。 ≒ current_user?
   end
 
   def current_user=(user)

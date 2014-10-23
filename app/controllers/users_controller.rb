@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     if signed_in?
       redirect_to root_path
     else
-      @user = User.new  # フォームを正常に出力する@userオブジェクト
+      @user = User.new  # フォームを正常に出力するためにビューで受け取る@userオブジェクト
     end
   end
 
