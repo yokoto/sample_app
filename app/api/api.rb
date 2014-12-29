@@ -7,6 +7,7 @@ class API < Grape::API
 	get do
 	  User.all
 	end
+  end
 
   resource "microposts" do
 	desc "result all microposts"
