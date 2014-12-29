@@ -73,6 +73,16 @@ class UsersController < ApplicationController
 		render 'show_follow'
 	end
 
+	def atoms
+		@user = User.find(params[:id])
+		@microposts = @user.microposts
+
+		respond_to do |format|
+			format.html
+			format.atom
+		end
+	end
+
   private
 
     def user_params

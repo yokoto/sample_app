@@ -4,6 +4,7 @@ SampleApp::Application.routes.draw do
       get :following, :followers
     end
   end
+  get 'users/:id/atoms', to: 'users#atoms'
   resources :sessions, only:[:new, :create, :destroy]
   resources :microposts, only:[:create, :destroy]
   resources :relationships, only:[:create, :destroy]
