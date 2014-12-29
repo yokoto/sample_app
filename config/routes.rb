@@ -1,5 +1,4 @@
 SampleApp::Application.routes.draw do
-  mount API => "/"
   resources :users do
     member do
       get :following, :followers
