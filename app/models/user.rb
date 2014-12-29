@@ -1,12 +1,15 @@
 class User < ActiveRecord::Base
   has_many :microposts, dependent: :destroy
-  has_many :relationships, foreign_key: "follower_id", dependent: :destroy  # 2つのモデルの間の「第3のモデル」(結合モデル)の介在
-  has_many :followed_users, through: :relationships, source: :followed  # 自己結合
-  # belongs_to :relationships
+  # has_many :through(多対多)の自己結合
+  # 1.
+  has_many :relationships, foreign_key: "follower_id", dependent: :destroy  # Relationshipモデルから見て、仮のFollowerモデルとして関連付け 
+  # 3.
+  has_many :followed_users, through: :relationships, source: :followed  # Relationshipモデルをたどった後、仮のFollowedモデル(2で関連付け済み)に自己結合
 
-  has_many :reverse_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy  # has_many :relationshipsの逆
-  has_many :followers, through: :reverse_relationships#, source: :follower  # 自己結合
-  # belongs_to :reverse_relationships
+  # 2.
+  has_many :reverse_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy  # Relationshipモデルから見て、仮のFollowedモデルとして関連付け
+  # 4.
+  has_many :followers, through: :reverse_relationships#, source: :follower  # Relationshipモデルをたどった後、仮のFollowerモデル(1で関連付け済み)に自己結合
 
   has_secure_password
   before_save { email.downcase! }
